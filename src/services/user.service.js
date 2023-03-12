@@ -1,6 +1,4 @@
 const User = require("../models/user.model");
-const Post = require("../models/post.model");
-const Comment = require("../models/comment.model");
 
 class UserService {
   async createUser(userData) {

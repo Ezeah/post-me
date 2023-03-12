@@ -1,14 +1,12 @@
 const express = require("express");
 const User = require("../models/user.model");
-const Post = require("../models/post.model");
-const Comment = require("../models/comment.model");
-const Validate = require("../middlewares/validate");
-const Authenticate = require("../middlewares/adminauth.middleware");
-const Authenticate = require("../middlewares/userauth.middleware");
+const validate = require("../middlewares/validate.middleware");
+const adminauth = require("../middlewares/adminAuth.middleware");
+const userauth = require("../middlewares/userauth.middleware")
 const router = express.Router()
 
 // Route for user signup
-router.post("/signup", Validate, async (req, res) => {
+router.post("/signup", validate, async (req, res) => {
   try {
     const user = new User(req.body);
     await user.save();
@@ -32,7 +30,7 @@ router.post("/login", async (req, res) => {
 });
 
 // Get all users
-router.get("/users", Authenticate, async (req, res) => {
+router.get("/users", async (req, res) => {
   try {
     const users = await User.find();
     res.send(users);
@@ -43,7 +41,7 @@ router.get("/users", Authenticate, async (req, res) => {
 });
 
 // Get a single user by id
-router.get("/users/:id", Validate, async (req, res) => {
+router.get("/users/:id", validate, async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
     if (!user) {
@@ -57,7 +55,7 @@ router.get("/users/:id", Validate, async (req, res) => {
 });
 
 // Update or replace user
-router.put("/users/:id", Authenticate, async (req, res) => {
+router.put("/users/:id", userauth, async (req, res) => {
   const updates = Object.keys(req.body);
   const allowedUpdates = ["username", "email", "password"];
   const isValidOperation = updates.every((update) =>
@@ -81,7 +79,7 @@ router.put("/users/:id", Authenticate, async (req, res) => {
 });
 
 // Soft delete a user
-router.delete("/users/:id", Authenticate, async (req, res) => {
+router.delete("/users/:id", userauth, async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
     if (!user) {
@@ -97,7 +95,7 @@ router.delete("/users/:id", Authenticate, async (req, res) => {
 });
 
 // Get a user's handle by id
-router.get("/users/:id/handle", Validate, async (req, res) => {
+router.get("/users/:id/handle", validate, async (req, res) => {
   try {
     const user = await User.findById(req.params.id).select("handle");
     if (!user) {
@@ -111,7 +109,7 @@ router.get("/users/:id/handle", Validate, async (req, res) => {
 });
 
 // Get a user's handle and posts by id
-router.get("/users/:id/handle/posts", Validate, async (req, res) => {
+router.get("/users/:id/handle/posts", validate, async (req, res) => {
   try {
     const user = await User.findById(req.params.id).populate("posts");
     if (!user) {

@@ -1,9 +1,8 @@
 const express = require('express');
 const Joi = require('joi');
-const Validate = require('../middlewares/adminauth.middleware');
-const Authenticate = require('../middlewares/userauth.middleware');
-const post = require('../models/post.model');
-const comment = require('../models/comment.model');
+const validate = require('../middlewares/validate.middleware');
+const userauth = require('../middlewares/userauth.middleware');
+const adminauth = require('./adminAuth.middleware');
 const User = require("../models/user.model");
 
 function validateData(schema) {
