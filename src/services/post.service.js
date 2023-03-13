@@ -11,6 +11,15 @@ async function createPost(title, content, authorId) {
   return post;
 }
 
+// Function to all user posts 
+async function getUserPosts(id) {
+  const user = await user.findById(id);
+  if (!user) {
+    throw new Error("User not found");
+  }
+  return Post.find({ author: user._id });
+}
+
 // Function to retrieve a post by ID
 async function getPostById(postId) {
   const post = await PostIt.findById(postId).populate('author', 'username');

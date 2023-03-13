@@ -252,6 +252,132 @@ app.get('api/v1/posts', (req, res) => {
   return res.json({ postIts: filteredPostIts });
 });
 
+// endpoint to create a comment under a post
+app.post('api/v1/posts/:postId/comments', (req, res) => {
+  const postId = req.params.postId;
+  const comment = req.body;
+  res.status(201).send({ message: MESSAGES.POST, success: true, data });
+  (error) =>  {
+    if (error) { 
+      res.status(501).send({ message: err.message || MESSAGES.ERROR, success: false });
+      }
+    }
+});
+
+// endpoint to get all comments under a post
+app.get('api/v1/posts/:postId/comments', (req, res) => {
+  const postId = req.params.postId;
+  const comments = {} ; 
+  res.status(200).send({ message: MESSAGES.POST, success: true, data });
+  (error) =>  {
+    if (error) { 
+      res.status(500).send({ message: err.message || MESSAGES.ERROR, success: false });
+      }
+    }
+});
+
+// endpoint to get a single comment under a post
+app.get('api/v1/posts/:postId/comments/:id', (req, res) => {
+  const postId = req.params.postId;
+  const id = req.params.id;
+  const comment = {}; 
+  res.status(200).send({ message: MESSAGES.POST, success: true, data });
+  (error) =>  {
+    if (error) { 
+      res.status(500).send({ message: err.message || MESSAGES.ERROR, success: false });
+      }
+    }
+});
+
+// endpoint to update a single comment under a post 
+app.put('api/v1/posts/:postId/comments/:id', (req, res) => {
+  const postId = req.params.postId;
+  const id = req.params.id;
+  const newComment = req.body;
+  const updatedComment = {...newComment, deleted: true}; 
+  res.status(201).send({ message: MESSAGES.POST, success: true, data });
+  (error) =>  {
+    if (error) { 
+      res.status(501).send({ message: err.message || MESSAGES.ERROR, success: false });
+      }
+  }
+});
+
+app.delete('api/v1/posts/:postId/comments/:id', (req, res) => {
+  const postId = req.params.postId;
+  const id = req.params.id;
+  const deletedComment = { id: commentId, deleted: true }; 
+  res.status(200).send({ message: MESSAGES.DELETE, success: true, data });
+  (error) =>  {
+    if (error) { 
+      res.status(500).send({ message: err.message || MESSAGES.ERROR, success: false });
+      }
+    }
+});
+
+// POST endpoint to create a reply under a comment
+app.post('api/v1/comments/:commentId/replies', (req, res) => {
+  const commentId = req.params.commentId;
+  const newReply = req.body; 
+  res.status(201).send({ message: MESSAGES.POST, success: true, data });
+  (error) =>  {
+    if (error) { 
+      res.status(501).send({ message: err.message || MESSAGES.ERROR, success: false });
+      }
+    }
+});
+
+// GET endpoint to retrieve all replies under a comment
+app.get('api/v1/comments/:commentId/replies', (req, res) => {
+  const commentId = req.params.commentId;
+  const replies = {}; 
+  res.status(200).send({ message: MESSAGES.POST, success: true, data });
+  (error) =>  {
+    if (error) { 
+      res.status(500).send({ message: err.message || MESSAGES.ERROR, success: false });
+      }
+    }
+});
+
+// GET endpoint to retrieve a single reply under a comment
+app.get('api/v1/comments/:commentId/replies/:id', (req, res) => {
+  const commentId = req.params.commentId;
+  const replyId = req.params.id;
+  const reply = { id: replyId, message: 'Example reply message' }; 
+  res.status(200).send({ message: MESSAGES.POST, success: true, data });
+  (error) =>  {
+    if (error) { 
+      res.status(500).send({ message: err.message || MESSAGES.ERROR, success: false });
+      }
+    }
+});
+
+// PUT endpoint to update a single reply under a comment
+app.put('api/v1/comments/:commentId/replies/:id', (req, res) => {
+  const commentId = req.params.commentId;
+  const replyId = req.params.id;
+  const updatedReply = req.body; 
+  res.status(201).send({ message: MESSAGES.POST, success: true, data });
+  (error) =>  {
+    if (error) { 
+      res.status(501).send({ message: err.message || MESSAGES.ERROR, success: false });
+      }
+  }
+});
+
+// DELETE endpoint to delete a single reply
+app.delete('api/v1/replies/:id', (req, res) => {
+  const replyId = req.params.id;
+  const deletedReply = { id: replyId, deleted: true }; 
+  res.status(200).send({ message: MESSAGES.DELETE, success: true, data });
+  (error) =>  {
+    if (error) { 
+      res.status(500).send({ message: err.message || MESSAGES.ERROR, success: false });
+      }
+    }
+});
+
+
 app.listen(8000,()=>{
     console.log('server is up and running...')
 })
