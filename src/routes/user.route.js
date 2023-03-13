@@ -3,6 +3,7 @@ const User = require("../models/user.model");
 const validate = require("../middlewares/validate.middleware");
 const adminauth = require("../middlewares/adminAuth.middleware");
 const userauth = require("../middlewares/userauth.middleware")
+const services = require('../services/user.service');
 const router = express.Router()
 
 // Route for user signup

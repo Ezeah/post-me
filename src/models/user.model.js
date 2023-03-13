@@ -8,6 +8,7 @@ const userRouter =  require("../routes/user.route")
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const constants = require("../utilities/constants.utilities");
+const { string, array } = require("joi");
 const { USER, DATABASES } = constants;
 
 const userSchema = new mongoose.Schema({
@@ -47,6 +48,22 @@ password: {
             throw new Error("Password cannot contain 'password'");
         }
     },
+},
+avatar: {
+    type: string,
+    required: true,
+    trim,
+    default: ""
+},
+followers: {
+    type: array,
+    trim,
+    default: []
+},
+followering: {
+    type: array,
+    trim,
+    default: []
 },
 handle: {
     type: String,
