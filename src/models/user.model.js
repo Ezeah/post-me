@@ -49,20 +49,6 @@ password: {
         }
     },
 },
-profilePicture: {
-    type: string,
-    default: ""
-},
-followers: {
-    type: array,
-    trim: true,
-    default: []
-},
-followering: {
-    type: array,
-    trim: true,
-    default: []
-},
 handle: {
     type: String,
     required: true,
