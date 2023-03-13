@@ -49,22 +49,6 @@ password: {
         }
     },
 },
-avatar: {
-    type: string,
-    required: true,
-    trim,
-    default: ""
-},
-followers: {
-    type: array,
-    trim,
-    default: []
-},
-followering: {
-    type: array,
-    trim,
-    default: []
-},
 handle: {
     type: String,
     required: true,
