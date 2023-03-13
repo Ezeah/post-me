@@ -49,20 +49,18 @@ password: {
         }
     },
 },
-avatar: {
+profilePicture: {
     type: string,
-    required: true,
-    trim,
     default: ""
 },
 followers: {
     type: array,
-    trim,
+    trim: true,
     default: []
 },
 followering: {
     type: array,
-    trim,
+    trim: true,
     default: []
 },
 handle: {
